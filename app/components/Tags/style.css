@@ -1,0 +1,113 @@
+/* Styles for React Tags */
+
+.container {
+    margin: auto;
+    width: 50%;
+  }
+  
+  /* Styles for tags */
+  
+  .ReactTags__tags {
+    position: relative;
+  }
+  
+  .ReactTags__selected span.ReactTags__tag {
+    border: 1px solid #ddd;
+    background: #f5f5f5; /* Light grey background */
+    color: #000; /* Black font color */
+    font-size: 14px; /* Increased font size for better visibility */
+    display: inline-block;
+    padding: 8px; /* Increased padding for better spacing */
+    margin: 0 5px;
+    border-radius: 4px; /* Increased border radius for a softer look */
+  }
+  
+  .ReactTags__selected a.ReactTags__remove {
+    color: #aaa;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .ReactTags__remove {
+    border: none;
+    cursor: pointer;
+    background: none;
+    color: #000; /* Black font color */
+  }
+  
+  .ReactTags__error {
+    color: #e03131;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    svg {
+      padding: 0 5px;
+    }
+  }
+  
+  /* Styles for suggestions */
+  
+  .ReactTags__suggestions {
+    position: absolute;
+  }
+  
+  .ReactTags__suggestions ul {
+    list-style-type: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softened box-shadow */
+    background: #f5f5f5; /* Light grey background */
+    width: auto; /* Adjusted width to fit content */
+    max-width: 300px; /* Added max-width for better responsiveness */
+  }
+  
+  .ReactTags__suggestions li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px; /* Increased padding for better spacing */
+    margin: 0;
+    color: #000; /* Black font color */
+  }
+  
+  .ReactTags__suggestions li.ReactTags__activeSuggestion {
+    background: #e0e0e0; /* Slightly darker shade for active suggestion */
+    cursor: pointer;
+  }
+  
+  /* Styles for input */
+  
+  .ReactTags__tagInput {
+    border-radius: 4px; /* Increased border radius for consistency */
+    display: inline-table;
+  }
+  
+  .ReactTags__tagInput input.ReactTags__tagInputField,
+  .ReactTags__tagInput input.ReactTags__tagInputField:focus {
+    height: 36px; /* Increased height for better input area */
+    margin: 0;
+    font-size: 14px; /* Increased font size for better visibility */
+    border: 1px solid #ddd; /* Adjusted border color for consistency */
+    padding: 0 10px; /* Adjusted padding for better input area */
+    width: 100%; /* Fills the container width */
+  }
+  
+  .ReactTags__editInput {
+    border-radius: 4px; /* Increased border radius for consistency */
+  }
+  
+  .ReactTags__editTagInput {
+    display: inline-flex;
+  }
+  
+  /* Clear all button styles can be moved here if desired */
+  
+  .ReactTags__clearAll {
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    background: #f88d8d;
+    color: #fff;
+    border: none;
+    border-radius: 4px; /* Increased border radius for consistency */
+  }
+  
