@@ -4,7 +4,7 @@ import BlogItem from "./components/BlogItem/BlogItem";
 import { BlogGetData } from "./models/BlogGet";
 import blogsecure from "./services/blogSecure";
 
-export const fetchData = async () => {
+const fetchData = async () => {
   const response = await blogsecure.get('/blogs/fetch_all'); // Replace with your API endpoint
 
   if(response.status!=200){

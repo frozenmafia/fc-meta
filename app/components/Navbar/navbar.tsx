@@ -12,7 +12,7 @@ const navItems = [
   { path: "/about", label: "About" },
 ];
 
-const navbar = () => {
+const Navbar = () => {
   let token = null;
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -69,4 +69,4 @@ const navbar = () => {
   );
 };
 
-export default navbar;
+export default Navbar;

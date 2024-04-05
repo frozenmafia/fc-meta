@@ -1,4 +1,3 @@
-import { OutputData } from "@editorjs/editorjs";
 import { Tag } from "react-tag-input";
 
 export interface BlogGetData {

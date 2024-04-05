@@ -1,5 +1,3 @@
-import { OutputData } from "@editorjs/editorjs";
-import { Tag } from "react-tag-input";
 // models/BlogPost.ts
 export interface BlogPostData {
   id?:number;
