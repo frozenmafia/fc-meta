@@ -4,7 +4,6 @@ import { BlogCreateState } from "@/app/models/states/blogCreateState";
 import blogsecure from "@/app/services/blogSecure";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { error } from "console";
 
 export const createBlog = createAsyncThunk(
     "blogs/create",
@@ -63,6 +62,26 @@ export const deleteBlog = createAsyncThunk(
   }
 )
 
+export const uploadFile = createAsyncThunk(
+  "blogs/uploadFile",
+  async (file:File, {rejectWithValue})=>{
+    try{
+      const formData = new FormData();
+      formData.append("filename", file);
+      const response = await blogsecure.post('/blogs/uploadFile',formData);
+      return response.data;
+    }catch(error: any){
+      if(axios.isAxiosError(error)){
+        return rejectWithValue(error);
+      }
+      else{
+        console.error(error);
+        throw error;
+      }
+    }
+  }
+)
+
 const initialState : BlogCreateState = {
     blog: null,
     loading: false,
@@ -103,6 +122,7 @@ export const blogSlice = createSlice({
               state.loading = false;
               state.error = action.payload;
           })
+        
     },
 })
 

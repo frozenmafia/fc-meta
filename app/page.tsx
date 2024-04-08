@@ -1,8 +1,13 @@
-import { Box, Button, Grid } from "@mui/material";
+"use client"
+import { Box, Button, Grid, Typography } from "@mui/material";
 import Link from "next/link";
 import BlogItem from "./components/BlogItem/BlogItem";
 import { BlogGetData } from "./models/BlogGet";
 import blogsecure from "./services/blogSecure";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { fetchAllBlogs } from "@/lib/feature/blogs/blogFetchSlice";
 
 const fetchData = async () => {
   const response = await blogsecure.get('/blogs/fetch_all'); // Replace with your API endpoint
@@ -13,8 +18,16 @@ const fetchData = async () => {
   return response.data;
 };
 
-const Home = async () => {
-  const blogs = await fetchData();
+const Home = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const blogs = useAppSelector((state)=>state.blogs.blogs);
+  useEffect(()=>{
+
+    dispatch(fetchAllBlogs());
+
+  }, [router])
 
   return (
     <Box sx={{ position: 'relative', height: '100%' }}>
@@ -23,15 +36,21 @@ const Home = async () => {
         Create blog
       </Button>
       </Link>
+      {
+        blogs ?
 
-      <Grid container spacing={2}> {/* Add spacing between grid items */}
-        {blogs.map((blog: BlogGetData) => (
-          <Grid item xs={12} sm={6} md={4} key={blog.id} display={"flex"} justifyContent={"center"}> {/* Set grid size based on screen size */}
-            <BlogItem blog={blog} />
-          </Grid>
-        ))
-        }
-      </Grid>
+<Grid container spacing={2}> {/* Add spacing between grid items */}
+{blogs.map((blog: BlogGetData) => (
+  <Grid item xs={12} sm={6} md={4} key={blog.id} display={"flex"} justifyContent={"center"}> {/* Set grid size based on screen size */}
+    <BlogItem key={blog.id} blog={blog} />
+  </Grid>
+))
+}
+</Grid>:<Typography variant="h1">Loading</Typography>
+
+      }
+
+      
     </Box>
   );
 };

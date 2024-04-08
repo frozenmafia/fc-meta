@@ -1,15 +1,12 @@
-import TagOutput from "@/app/components/Tags/TagOutput";
 import { BlogGetData } from "@/app/models/BlogGet";
 import blogsecure from "@/app/services/blogSecure";
-import { Stack, Typography, keyframes } from "@mui/material";
-import Image from "next/image";
-import AspectRatio from "@mui/joy/AspectRatio";
+import { Card, CardMedia, Stack, Typography } from "@mui/material";
 import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
-  params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export async function generateMetadata(
   { params, searchParams }: Props,
@@ -18,17 +15,17 @@ export async function generateMetadata(
   // read route params
   // fetch data
 
-  const response = await blogsecure.get(`/blogs/${params.slug}`); 
-  const blog = response.data
+  const response = await blogsecure.get(`/blogs/${params.slug}`);
+  const blog = response.data;
 
   // optionally access and extend (rather than replace) parent metadata
   // const previousImages = (await parent).openGraph?.images || []
- 
+
   return {
     title: blog.title,
-    description:blog.content,
-    keywords:blog.tags
-  }
+    description: blog.content,
+    keywords: blog.tags,
+  };
 }
 
 const fetchBlog = async (blogSlug: string) => {
@@ -39,6 +36,9 @@ const fetchBlog = async (blogSlug: string) => {
 const BlogPost = async ({ params: { slug } }: any) => {
   const blog: BlogGetData | undefined = await fetchBlog(slug); // Allow undefined blog
 
+  const src =
+    blog.thumbnail_url || "http://localhost:8004/images/cat1_5a31c9fd.png";
+
   if (!blog) {
     // Handle the case where the blog is not found (e.g., display error message)
     <div className="text-2xl">
@@ -48,45 +48,47 @@ const BlogPost = async ({ params: { slug } }: any) => {
   }
 
   return (
-    <Stack
-      // width={"100vw"}
-      width={"100%"}
-    >
-<Stack width={"100%"} /* Other styles */>
-  <AspectRatio sx={{ position: "relative" }}>
-    <Image
-      src={`/images/im${blog.thumbnail_id}.jpeg`}
-      width={1920}
-      height={1080}
-      alt="image"
-    />
-    <Stack
-      direction="row"
-      spacing={2}
-      justifyContent="space-around"
-      alignItems="center"
-      position="absolute"
-      top={200}
-      width={"100%"}
-    >
-      <Stack width={"60%"} height={"100%"} style={{ overflowWrap: "break-word" }}>
-        {/* Adjust width and use overflowWrap for text wrapping */}
-        <Typography
-          variant="h1"
-          style={{
-            color: "white",
-            fontSize: "4rem",
-            wordWrap: "break-word",
-          }}
+    <Stack width="100%">
+      <Stack
+        width="100%"
+        height="100%"
+        alignItems="center"
+        justifyContent="center"
+        position="relative" /* Maintain relative positioning for absolute children */
+      >
+        <Card
+          style={{ padding: "16px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}
         >
-          {/* Very long text */}
-          {blog.title}
-        </Typography>
+          <div style={{ position: "relative" }}>
+            <CardMedia
+              component="img"
+              image={blog.thumbnail_url}
+              title="Pancakes"
+              alt="Pancakes"
+              style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: "8px",
+              }} // Optional styling
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                textAlign: "center",
+                color: "white",
+                textShadow: "1px 1px 2px rgba(0,0,0,0.8)",
+              }}
+            >
+              <Typography variant="h5" component="div" fontSize={"4rem"}>
+                {blog.title}
+              </Typography>
+            </div>
+          </div>
+        </Card>
       </Stack>
-      <TagOutput tags={blog.tags} col="white" />
-    </Stack>
-  </AspectRatio>
-</Stack>
 
       <div
         style={{

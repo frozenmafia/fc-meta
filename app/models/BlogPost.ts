@@ -10,6 +10,6 @@ export interface BlogPostData {
   likes?: number;
   dislikes?:number;
   comments?: string[];
-  thumbnail_id:number;
+  thumbnail_url?:string;
 }
 

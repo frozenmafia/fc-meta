@@ -1,7 +1,7 @@
 import { Tag } from "react-tag-input";
 
 export interface BlogGetData {
-    thumbnail_id: number;
+    thumbnail_url: string;
     id?:number;
     title: string;
     content: any;

@@ -1,6 +1,6 @@
 "use client"
 import { BlogGetData } from "@/app/models/BlogGet";
-import { setCurrentBlog } from "@/lib/feature/blogs/blogFetchSlice";
+import { fetchAllBlogs, setCurrentBlog } from "@/lib/feature/blogs/blogFetchSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { BookmarkAdd } from "@mui/icons-material";
 import { Button } from "@mui/joy";
@@ -43,6 +43,7 @@ const BlogItem = ({ blog }: { blog: BlogGetData }) => {
       dispatch(deleteBlog(blog.id))
         .then((response) => {
           console.log(response);
+          dispatch(fetchAllBlogs());
         })
         .catch((error) => console.log(error));
     setOpenConfirmation(false);
@@ -51,6 +52,8 @@ const BlogItem = ({ blog }: { blog: BlogGetData }) => {
   const handleCloseConfirmation = () => {
     setOpenConfirmation(false);
   };
+
+  const src = blog.thumbnail_url || 'http://localhost:8004/images/cat1_5a31c9fd.png';
   return (
     <Card
       variant="outlined"
@@ -71,7 +74,8 @@ const BlogItem = ({ blog }: { blog: BlogGetData }) => {
         </IconButton>
       </div>
       <Image
-        src={`/images/im${blog.thumbnail_id}.jpeg`}
+        loader = {()=>src}
+        src={src}
         width={500}
         height={500}
         alt="img"

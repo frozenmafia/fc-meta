@@ -110,6 +110,9 @@ export const blogFetchSlice = createSlice({
                     }))
                     return {...blog, tags: updateTags};
                 })
+                const blogs = state.blogs?.slice().sort((a, b) => (a?.id || 0) - (b?.id || 0));
+                state.blogs = blogs || state.blogs;
+
             })
             .addCase(fetchAllBlogs.rejected, (state, action) => {
                 // Handle rejected case if necessary
