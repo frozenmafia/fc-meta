@@ -9,27 +9,25 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchAllBlogs } from "@/lib/feature/blogs/blogFetchSlice";
 
-const fetchData = async () => {
-  const response = await blogsecure.get("/blogs/fetch_all"); // Replace with your API endpoint
-
-  if (response.status != 200) {
-    throw new Error("failed to fetch API data");
-  }
-  return response.data;
-};
 
 const Home = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const blogs = useAppSelector((state) => state.blogs.blogs);
+  const current_user = useAppSelector(state=>state.auth.user);
   useEffect(() => {
     dispatch(fetchAllBlogs());
   }, [router]);
 
   return (
     <Box sx={{ position: "relative", height: "100%" }}>
-      <Link href={"blog/create"}>
+      
+      
+      {
+          current_user?.username &&
+        
+        <Link href={"blog/create"}>
         <Button
           sx={{ position: "fixed", bottom: 100, right: 16, zIndex: 2 }}
           variant="contained"
@@ -37,6 +35,7 @@ const Home = () => {
           Create blog
         </Button>
       </Link>
+}
       {blogs ? (
         <Grid container spacing={2}>
           {" "}

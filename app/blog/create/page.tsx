@@ -37,8 +37,8 @@ const CreateBlog = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //   const token = localStorage.getItem(TOKEN);
-    //   if (!token) router.push("/login");
+      const token = localStorage.getItem(TOKEN);
+      if (!token) router.push("/login");
   }, [router]);
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
