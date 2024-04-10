@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchAllBlogs } from "@/lib/feature/blogs/blogFetchSlice";
+import { CircularProgress } from '@mui/material';
+
 
 
 const Home = () => {
@@ -22,12 +24,8 @@ const Home = () => {
 
   return (
     <Box sx={{ position: "relative", height: "100%" }}>
-      
-      
-      {
-          current_user?.username &&
-        
-        <Link href={"blog/create"}>
+    {current_user?.username && (
+      <Link href={"blog/create"}>
         <Button
           sx={{ position: "fixed", bottom: 100, right: 16, zIndex: 2 }}
           variant="contained"
@@ -35,31 +33,38 @@ const Home = () => {
           Create blog
         </Button>
       </Link>
-}
-      {blogs ? (
-        <Grid container spacing={2}>
-          {" "}
-          {/* Add spacing between grid items */}
-          {blogs.map((blog: BlogGetData) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              key={blog.id}
-              display={"flex"}
-              justifyContent={"center"}
-            >
-              {" "}
-              {/* Set grid size based on screen size */}
-              <BlogItem key={blog.id} blog={blog} />
-            </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <Typography variant="h1">Loading</Typography>
-      )}
-    </Box>
+    )}
+    {blogs ? (
+      <Grid container spacing={2}>
+        {/* Add spacing between grid items */}
+        {blogs.map((blog: BlogGetData) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={blog.id}
+            display={"flex"}
+            justifyContent={"center"}
+          >
+            {/* Set grid size based on screen size */}
+            <BlogItem key={blog.id} blog={blog} />
+          </Grid>
+        ))}
+      </Grid>
+    ) : (
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    )}
+  </Box>
   );
 };
 
